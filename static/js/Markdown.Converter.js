@@ -430,7 +430,6 @@ else
             
             text = _EncodeAmpsAndAngles(text);
             text = _DoItalicsAndBold(text);
-            text = _DoSubAndSuperscript(text);
 
             // Do hard breaks:
             text = text.replace(/  +\n/g, " <br>\n");
@@ -1057,17 +1056,6 @@ else
 
             text = text.replace(/([\W_]|^)(\*|_)(?=\S)([^\r\*_]*?\S)\2([\W_]|$)/g,
             "$1<em>$3</em>$4");
-
-            return text;
-        }
-
-        function _DoSubAndSuperscript(text) {
-
-            // sub
-            text = text.replace(/(?:~T)(?=\S)(\S*)(?:~T)/g, "<sub>$1</sub>");
-
-            // super
-            text = text.replace(/(?:\^)(?=\S)(\S*)(?:\^)/g, "<sup>$1</sup>");
 
             return text;
         }
