@@ -451,6 +451,12 @@ function processGooglePrettifierPreBlocks(text) {
 	return text;
 }
 
+function processDoPandocSubAndSuperscript(text) {
+	//this adds pandoc sub and superscript support which is currently missing in pagedown
+	text = text.replace(/(?:~)(?=\S)(\S*)(?:~)/g, "<sub>$1</sub>");
+	text = text.replace(/(?:\^)(?=\S)(\S*)(?:\^)/g, "<sup>$1</sup>");
+	return text;
+}
 
 function _updatePreview() {
 	var markdownString = editor.getValue();
@@ -476,6 +482,7 @@ function initMarkdownConverter() {
 	addPostCoversionHook(pageDownSanitizingConverter, processGooglePrettifierPreBlocks);
 	addPreCoversionHook(pageDownSanitizingConverter, updateWordCount);
 	addPreCoversionHook(pageDownSanitizingConverter, updateCharCount);
+	addPreCoversionHook(pageDownSanitizingConverter, processDoPandocSubAndSuperscript);
     	return pageDownSanitizingConverter;
 }
 
